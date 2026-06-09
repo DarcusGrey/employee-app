@@ -48,6 +48,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
-        file: ./Dockerfile
+        # Change this accordingly to what and where you want.
+        file: ./app_graal.Dockerfile
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/employee-app:latest
         push: true 
