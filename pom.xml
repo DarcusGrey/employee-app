@@ -14,7 +14,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
-		<java.version>21</java.version>
+		<java.version>17</java.version>
 	</properties>
 
 	<dependencies>
@@ -86,6 +86,8 @@
 						<configuration>
 							<buildArgs>
 								<buildArg>--pgo=${project.basedir}/default.iprof</buildArg>
+								<buildArg>-H:+StaticExecutableWithDynamicLibC</buildArg>
+								<!-- Use this only when you have zlibgc  -->
 							</buildArgs>
 						</configuration>
 					</plugin>
