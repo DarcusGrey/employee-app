@@ -1,6 +1,7 @@
-#Image for running the java app compiled via graalvm on ubuntu
+#Image for running the java app compiled via graalvm on ubuntu, use distroless for security and smaller, use debian distro for debugging
 
-FROM ubuntu:24.04
+FROM gcr.io/distroless/base-debian12
+# FROM debian:12-slim
 WORKDIR /app
 COPY target/employee /app/employee
 EXPOSE 8080
