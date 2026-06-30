@@ -15,7 +15,9 @@ services:
       - .env
 
   liquibase:
-    image: liquibase/liquibase:latest
+    build:
+      context: .
+      dockerfile: liquibase.Dockerfile
     depends_on:
       - db
     volumes:
@@ -24,7 +26,7 @@ services:
       - --url=${DB_URL}
       - --username=${DB_USER}
       - --password=${DB_PASS}
-      - --changeLogFile=changelog/db.changelog-master.xml
+      - --changeLogFile=db.changelog-master.xml
       - update
     env_file:
       - .env
