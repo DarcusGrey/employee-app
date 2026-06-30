@@ -14,25 +14,6 @@ services:
     env_file:
       - .env
 
-  liquibase:
-    build:
-      context: .
-      dockerfile: liquibase.Dockerfile
-    depends_on:
-      - db
-    volumes:
-      - ./db/changelog:/liquibase/changelog
-    command:
-      - --url=${DB_URL}
-      - --username=${DB_USER}
-      - --password=${DB_PASS}
-      - --changeLogFile=db.changelog-master.xml
-      - update
-    env_file:
-      - .env
-    networks:
-      - mynet
-
   server:
     build:
       context: .
@@ -43,12 +24,13 @@ services:
       - mynet
     ports:
       - "8080:8080"
-    depends_on:
-      - liquibase
     volumes:
       - ./db:/app/db
+    depends_on:
+      - db
     environment:
-      SPRING_LIQUIBASE_ENABLED: false
+      SPRING_LIQUIBASE_ENABLED: true
+      SPRING_LIQUIBASE_CHANGE_LOG: file:db/changelog/db.changelog-master.xml
     env_file:
       - .env
     
