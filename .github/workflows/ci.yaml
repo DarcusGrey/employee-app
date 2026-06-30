@@ -29,8 +29,10 @@ jobs:
 
     # Step 4: Build the Native Binary using your PGO profile
     - name: Compile Native Binary with PGO
+      # run: |
+      #   ./mvnw -Pnative,optimize clean native:compile -DskipTests
       run: |
-        ./mvnw -Pnative,optimize clean native:compile -Dmaven.test.skip=true 
+        ./mvnw -Pnative package clean native:compile -DskipTests
 
     # Step 5: Set up Docker Buildx (required for modern Docker features)
     - name: Set up Docker Buildx
