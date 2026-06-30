@@ -4,6 +4,14 @@ on:
   push:
     branches:
       - main 
+    paths:
+      - '.github/workflows/ci.yaml'
+      - 'src/**'
+      - '.mvn/**'
+      - 'app*.Dockerfile'
+      - 'mvnw'
+      - 'mvnw.cmd'
+      - 'pom.xml'
   workflow_dispatch: # Allows to trigger the build manually from GitHub UI
 
 jobs:
