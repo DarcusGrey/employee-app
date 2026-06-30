@@ -3,6 +3,7 @@
 FROM gcr.io/distroless/base-debian12
 # FROM debian:12-slim
 WORKDIR /app
-COPY target/employee /app/employee
 EXPOSE 8080
+ENV TZ="Asia/Kolkata"
+COPY target/employee /app/employee
 ENTRYPOINT ["/app/employee"]

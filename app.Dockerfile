@@ -1,7 +1,8 @@
 #Docker image for running a jar file, not compiled via graalvm
 
-FROM eclipse-temurin:21-jdk-alpine
+FROM eclipse-temurin:25-jdk-alpine
 WORKDIR /app
-COPY target/*.jar app.jar
+ENV TZ="Asia/Kolkata"
 EXPOSE 8080
+COPY target/*.jar app.jar
 ENTRYPOINT [ "java","-jar","app.jar" ]

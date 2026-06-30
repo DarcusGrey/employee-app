@@ -11,12 +11,14 @@ services:
       - "5432:5432"
     networks:
       - mynet
+    env_file:
+      - .env
 
   server:
     build:
       context: .
-      # dockerfile: app.Dockerfile    
-      dockerfile: app_graal.Dockerfile
+      dockerfile: app.Dockerfile    
+      # dockerfile: app_graal.Dockerfile
       # dockerfile: app_graal_redhat.Dockerfile
     # image: employee_graal:native
     networks: 
