@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-5.0.xsd">
+        
+    <changeSet id="004-add-email-column-employees" author="gaurav">
+        <addColumn tableName="employees">
+            <column name="email" type="varchar(100)">
+                <constraints unique="true"/>
+            </column>
+        </addColumn>
+
+        <rollback>
+            <dropColumn tableName="employees">
+                <column name="email"/>
+            </dropColumn>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

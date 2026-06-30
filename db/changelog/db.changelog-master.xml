@@ -5,8 +5,9 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-5.0.xsd">
     
-    <include file="changes/001-create-employees.xml"/>
-    <include file="changes/002-insert-initial-data.xml"/>
-    <include file="changes/003-insert-more-data.xml"/>
+    <include file="changes/001-create-employees.xml" relativeToChangelogFile="true"/>
+    <include file="changes/002-insert-initial-data.xml" relativeToChangelogFile="true"/>
+    <include file="changes/003-insert-more-data.xml" relativeToChangelogFile="true"/>
+    <!-- <include file="changes/004-add-email-column-employees.xml" relativeToChangelogFile="true"/> -->
 
 </databaseChangeLog>

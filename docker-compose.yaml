@@ -14,7 +14,7 @@ services:
     env_file:
       - .env
 
-  liquibase:
+  liquibase-update:
     build:
       context: .
       dockerfile: liquibase.Dockerfile
@@ -24,11 +24,33 @@ services:
     volumes:
       - ./db/changelog:/liquibase/changelog
     command:
-      - --url=${DB_URL}
-      - --username=${DB_USER}
-      - --password=${DB_PASS}
-      - --changeLogFile=db.changelog-master.xml
       - update
+    environment:
+      LIQUIBASE_COMMAND_URL: ${DB_URL}
+      LIQUIBASE_COMMAND_USERNAME: ${DB_USER}
+      LIQUIBASE_COMMAND_PASSWORD: ${DB_PASS}
+      LIQUIBASE_COMMAND_CHANGELOG_FILE: db.changelog-master.xml
+    env_file:
+      - .env
+    networks:
+      - mynet
+
+  liquibase:
+    profiles:
+      - tools
+    build:
+      context: .
+      dockerfile: liquibase.Dockerfile
+    depends_on:
+      - db
+    #Use this for dev, for prod use COPY in image Dockerfile.
+    environment:
+      LIQUIBASE_COMMAND_URL: ${DB_URL}
+      LIQUIBASE_COMMAND_USERNAME: ${DB_USER}
+      LIQUIBASE_COMMAND_PASSWORD: ${DB_PASS}
+      LIQUIBASE_COMMAND_CHANGELOG_FILE: db.changelog-master.xml
+    volumes:
+      - ./db/changelog:/liquibase/changelog
     env_file:
       - .env
     networks:
@@ -45,7 +67,8 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - liquibase
+      liquibase-update:
+        condition: service_completed_successfully
     environment:
       SPRING_LIQUIBASE_ENABLED: false
     env_file:
