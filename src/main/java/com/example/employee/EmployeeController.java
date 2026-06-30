@@ -32,7 +32,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public Employee putEmployee(@PathVariable String id, @RequestBody Employee employee) {
+    public Employee putEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
         Employee algo = employees.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee id doesn't exists."));
         algo.setName(employee.getName());
@@ -41,7 +41,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
-    public void removeEmployee(@PathVariable String id) {
+    public void removeEmployee(@PathVariable Integer id) {
         if(!employees.existsById(id)){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee id doesn't exists.");
         }
