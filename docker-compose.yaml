@@ -19,14 +19,17 @@ services:
       context: .
       dockerfile: app.Dockerfile    
       # dockerfile: app_graal.Dockerfile
-      # dockerfile: app_graal_redhat.Dockerfile
-    # image: employee_graal:native
+    # image: darcusgrey/employee-app
     networks: 
       - mynet
     ports:
       - "8080:8080"
     depends_on:
       - db
+    volumes:
+      - ./db:/app/db
+    environment:
+      SPRING_LIQUIBASE_ENABLED: true
     env_file:
       - .env
     

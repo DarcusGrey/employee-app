@@ -1,0 +1,59 @@
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+    networks:
+      - mynet
+    env_file:
+      - .env
+
+  liquibase:
+    image: liquibase/liquibase:latest
+    depends_on:
+      - db
+    volumes:
+      - ./db/changelog:/liquibase/changelog
+    command:
+      - --url=${DB_URL}
+      - --username=${DB_USER}
+      - --password=${DB_PASS}
+      - --changeLogFile=changelog/db.changelog-master.xml
+      - update
+    env_file:
+      - .env
+    networks:
+      - mynet
+
+  server:
+    build:
+      context: .
+      dockerfile: app.Dockerfile    
+      # dockerfile: app_graal.Dockerfile
+    # image: darcusgrey/employee-app
+    networks: 
+      - mynet
+    ports:
+      - "8080:8080"
+    depends_on:
+      - liquibase
+    volumes:
+      - ./db:/app/db
+    environment:
+      SPRING_LIQUIBASE_ENABLED: false
+    env_file:
+      - .env
+    
+volumes:
+  pgdata:
+
+networks:
+  mynet:
+    driver: bridge
+  
