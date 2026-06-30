@@ -1,0 +1,12 @@
+<databaseChangeLog>
+    <changeSet id="002-insert-initial-data" author="gaurav">
+        <insert tableName="employees">
+            <column name="name" value="John Doe"/>
+            <column name="age" valueNumeric="30"/>
+        </insert>
+        <insert tableName="employees">
+            <column name="name" value="Jane Smith"/>
+            <column name="age" valueNumeric="25"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

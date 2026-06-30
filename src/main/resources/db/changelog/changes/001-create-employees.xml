@@ -1,0 +1,13 @@
+<databaseChangeLog>
+    <changeSet id="001-create-employees-table" author="gaurav">
+        <createTable tableName="employees">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="age" type="int"/>
+            </createTable>
+    </changeSet>
+</databaseChangeLog>
